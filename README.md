@@ -5,8 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![DAX](https://img.shields.io/badge/DAX-Semantic%20Modeling-0078D4?style=for-the-badge)
 
-> **Interactive Power BI Model (`.pbix`):** [Download Latest Release (`v1.0.0`)](../../releases) *(All 2.26M compressed rows embedded—no SQL setup required)*  
-> **Instant Browser Preview:** [View Full 4-Page PDF Report](dashboard/Loan_Default_Risk_Dashboard.pdf)
+> **Interactive Power BI Model (`.pbix`):** [Download Latest Release (`v1.0.0`)](../../releases) *(All 2.26M compressed records embedded—open directly in Power BI Desktop with no SQL setup required)*
 
 ---
 
@@ -15,7 +14,7 @@
 Consumer lenders must balance **straight-through approval speed** against **capital preservation from high-risk defaults**. Analyzing **2,260,668 LendingClub loan applications** (**$34.02B** in funded volume), this end-to-end analytics and decision-support system answers two core credit risk questions:
 
 1. **Customer Risk Segmentation:** Which borrower segments exhibit the highest historical loan default probability across **Income Bracket**, **Loan Type / Purpose**, **Employment History**, and **Geography**?
-2. **Automated Underwriting & Triage:** Which incoming applications should be routed for **Manual Review** versus **Auto-Approval**, and how effectively do policy triggers isolate bad credit risk?
+2. **Automated Underwriting & Triage:** Which incoming applications should be routed for **Manual Review** versus **Auto-Approval**, and how effectively do policy triggers separate bad credit risk?
 
 ![Executive Summary](assets/01_executive_summary.png)
 
@@ -58,12 +57,12 @@ High-level portfolio KPIs (`2.26M` applications, `$34.02B` funded, `19.98%` defa
 ### Page 2: Loan Application Reviewer (Live Underwriting Simulator)
 Interactive "What-If" credit scoring tool powered by 5 numeric range parameters (`Annual Income`, `DTI Ratio`, `Revolving Utilization`, `Delinquencies`, `FICO Score`) and 3 disconnected category slicers (`Loan Grade`, `Loan Purpose`, `Employment Length`). Dynamically computes peer cohort default probability, a `0–100` risk score, trigger explanations, and **`ELIGIBLE FOR AUTO-APPROVE`** vs. **`MANUAL REVIEW REQUIRED`** status.
 
-![Loan Application Reviewer](assets/02_application_reviewer.png)
+![Loan Application Reviewer](assets/02_loan_application_reviewer.png)
 
 ### Page 3: Segment Risk Analysis
 Multi-dimensional default exploration across **Income Bracket** (volume vs. default rate combo chart), **Loan Purpose**, **Employment Tenure**, and **US State** choropleth map—filterable by `Year`, `Grade`, and `Term in months`.
 
-![Segment Risk Analysis](assets/03_segment_risk.png)
+![Segment Risk Analysis](assets/03_segment_risk_analysis.png)
 
 ### Page 4: Manual Review Queue
 Validates automated underwriting rules (`24.99%` flagged vs. `19.47%` unflagged default rate), visualizes risk density across a **`Loan Grade × FICO Band`** heatmap matrix and verification-status bar chart, and surfaces a prioritized worklist of flagged loans.
@@ -90,33 +89,32 @@ An application is routed to **`MANUAL REVIEW REQUIRED`** if it triggers **any** 
 loan-default-risk-analytics/
 ├── assets/
 │   ├── 01_executive_summary.png
-│   ├── 02_application_reviewer.png
-│   ├── 03_segment_risk.png
+│   ├── 02_loan_application_reviewer.png
+│   ├── 03_segment_risk_analysis.png
 │   └── 04_manual_review_queue.png
-├── dashboard/
-│   └── Loan_Default_Risk_Dashboard.pdf
 ├── data/
 │   └── sample_lending_club_100rows.csv
 ├── scripts/
-│   ├── clean_lending_club.py
+│   ├── accepted_csv_cleaning.py
 │   └── requirements.txt
 ├── sql/
-│   ├── 01_load_staging.sql
-│   ├── 02_build_star_schema.sql
+│   ├── 01_load_staging_data.sql
+│   ├── 02_create_star_schema.sql
 │   └── 03_create_bi_view.sql
 ├── .env.example
+├── .gitattributes
 ├── .gitignore
 └── README.md
 ```
 
 ### How to Explore or Reproduce
-1. **Explore Without Running Code:** Download the `.pbix` model from the **[Releases](../../releases)** tab and open it in Power BI Desktop, or browse the **[PDF Export](dashboard/Loan_Default_Risk_Dashboard.pdf)**.
+1. **Explore Without Running Code:** Download the `.pbix` model from the **[Releases](../../releases)** tab and open it directly in Power BI Desktop.
 2. **Reproduce the Python & MySQL Pipeline:**
    ```bash
-   git clone https://github.com/<your-username>/loan-default-risk-analytics.git
-   cd loan-default-risk-analytics
+   git clone https://github.com/ParimalD1903/Loan Default Risk Analytics.git
+   cd Loan Default Risk Analytics
    pip install -r scripts/requirements.txt
    ```
-   * Download `accepted_2007_to_2018Q4.csv` from the LendingClub Kaggle dataset into `data/raw/` (or inspect `data/sample_lending_club_100rows.csv` for schema structure).
-   * Run `python scripts/clean_lending_club.py` to generate `data/cleaned/accepted_loans_cleaned.csv`.
-   * Execute `sql/01_load_staging.sql`, `sql/02_build_star_schema.sql`, and `sql/03_create_bi_view.sql` sequentially in MySQL 8.0+.
+   * Download `accepted_2007_to_2018Q4.csv` from the LendingClub Kaggle dataset into `data/raw/` (or inspect `data/sample_lending_club_100rows.csv` for raw schema structure).
+   * Run `python scripts/accepted_csv_cleaning.py` to generate `data/cleaned/accepted_loans_cleaned.csv`.
+   * Execute `sql/01_load_staging_data.sql`, `sql/02_create_star_schema.sql`, and `sql/03_create_bi_view.sql` sequentially in MySQL 8.0+.
