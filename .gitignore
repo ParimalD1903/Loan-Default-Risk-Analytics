@@ -1,0 +1,11 @@
+# Block raw datasets, archives, and oversized PBIX from main Git tree
+*.csv
+!data/sample_lending_club_100rows.csv
+*.zip
+*.pbix
+
+# Block credentials and Python cache
+.env
+__pycache__/
+venv/
+.venv/
