@@ -5,7 +5,8 @@
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![DAX](https://img.shields.io/badge/DAX-Semantic%20Modeling-0078D4?style=for-the-badge)
 
-> **Interactive Power BI Model (`.pbix`):** [Download Latest Release (`v1.0.0`)](../../releases) *(All 2.26M compressed records embedded—open directly in Power BI Desktop with no SQL setup required)*
+> **Interactive Power BI Model (`.pbix`):** [Download Latest Release (`v1.0.0`)](../../releases) *(All 2.26M compressed records embedded—open directly in Power BI Desktop with no SQL setup required)*  
+> **Instant Browser Preview:** [View Full 4-Page PDF Report](dashboard/Loan%20Default%20Risk%20Dashboard.pdf)
 
 ---
 
@@ -86,12 +87,14 @@ An application is routed to **`MANUAL REVIEW REQUIRED`** if it triggers **any** 
 ## 6. Repository Structure & Local Setup
 
 ```text
-loan-default-risk-analytics/
+Loan Default Risk Analytics/
 ├── assets/
 │   ├── 01_executive_summary.png
 │   ├── 02_loan_application_reviewer.png
 │   ├── 03_segment_risk_analysis.png
 │   └── 04_manual_review_queue.png
+├── dashboard/
+│   └── Loan Default Risk Dashboard.pdf
 ├── data/
 │   └── sample_lending_club_100rows.csv
 ├── scripts/
@@ -108,7 +111,7 @@ loan-default-risk-analytics/
 ```
 
 ### How to Explore or Reproduce
-1. **Explore Without Running Code:** Download the `.pbix` model from the **[Releases](../../releases)** tab and open it directly in Power BI Desktop.
+1. **Explore Without Running Code:** Download the `.pbix` model from the **[Releases](../../releases)** tab and open it in Power BI Desktop, or view the **[Full 4-Page PDF Report](dashboard/Loan%20Default%20Risk%20Dashboard.pdf)** directly on GitHub.
 2. **Reproduce the Python & MySQL Pipeline:**
    ```bash
    git clone https://github.com/ParimalD1903/Loan Default Risk Analytics.git
